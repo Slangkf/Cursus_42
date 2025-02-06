@@ -34,6 +34,7 @@ typedef struct s_list
 
 //main
 int		main(int argc, char **argv);
+void	ft_free(t_list *list);
 
 //lists
 t_list	*ft_init_list(int argc, char **argv);
@@ -49,9 +50,6 @@ void	ft_check_order(t_list *a);
 void	ft_sort_list(t_list *a);
 void	ft_sort_three(t_list *a);
 void	ft_sort_four(t_list *a);
-void	ft_sort_five(t_list *a);
-
-t_node	*ft_find_smallest(t_list *list);
 
 //instructions
 void	ft_swap_a(t_list *a);
@@ -67,9 +65,18 @@ void	ft_reverse_rotate_b(t_list *b);
 void	ft_reverse_rotate_both(t_list *a, t_list *b);
 
 //utils
+t_node	*ft_find_biggest(t_list *list);
+t_node	*ft_find_smallest(t_list *list);
+t_node	*ft_find_last(t_list *list);
+
 long	ft_atol(const char *s);
+
+int		ft_find_pos_small(t_node *smallest, t_list *list);
+int		ft_length_list(t_list *list);
+int		ft_find_median_list(t_list *list);
 int		ft_new_strchr(const char *s, int c);
 int		ft_new_isdigit(char **argv);
 int		ft_new_isalpha(char **argv);
 int		ft_check_double(char **argv);
+int		ft_length_list(t_list *list);
 #endif
