@@ -29,6 +29,7 @@ static t_list	*ft_separ_args(char **argv)
 			exit (0);
 		}
 		ft_fill_list(a, input[i]);
+		free(input[i]);
 		i++;
 	}
 	free(input);

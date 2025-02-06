@@ -18,7 +18,7 @@ t_list	*create_list(void)
 
 	new_list = malloc(sizeof(t_list));
 	if (!new_list)
-		return (free(new_list), NULL);
+		return (NULL);
 	new_list->head = NULL;
 	return (new_list);
 }
