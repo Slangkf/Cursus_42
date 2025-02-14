@@ -23,7 +23,7 @@ void	ft_sort_list(t_list *a)
 		ft_sort_three(a);
 	else if (i == 4)
 		ft_sort_four(a);
-	//else
-	//	ft_sort_more(a);
+	else
+		ft_sort_more(a);
 	return ;
 }

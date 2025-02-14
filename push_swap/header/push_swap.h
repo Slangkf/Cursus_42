@@ -26,6 +26,7 @@ typedef struct s_node
 	int				data;
 	int				index;
 	struct s_node	*next;
+	struct s_node	*prev;
 }	t_node;
 
 typedef struct s_list
@@ -69,8 +70,7 @@ void	ft_reverse_rotate_b(t_list *b);
 void	ft_reverse_rotate_both(t_list *a, t_list *b);
 
 //utils
-t_node	*ft_find_biggest(t_list *list);
-t_node	*ft_find_smallest(t_list *list);
+t_node	*ft_find_smallest_node(t_list *list);
 t_node	*ft_find_last(t_list *list);
 
 long	ft_atol(const char *s);
@@ -88,4 +88,11 @@ int		ft_new_isalpha(char **argv);
 int		ft_check_order(t_list *list);
 int		ft_check_double(char **argv);
 int		ft_length_list(t_list *list);
+int		ft_check_bottom_list(t_list *a, int m);
+int		ft_compare_list_to_m(t_list *a, int m);
+int		ft_find_biggest_index(t_list *list);
+int		ft_find_smallest_index(t_list *list);
+int		ft_find_best_path_tobig(t_list *list, int m);
+int		ft_find_best_path_tosma(t_list *list, int m);
+int		ft_count_moves(t_list *list);
 #endif

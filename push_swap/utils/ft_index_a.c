@@ -38,17 +38,17 @@ static void	sort_clone(t_list *c)
 	int		tmp;
 
 	head = c->head;
-	while (head->data > head->next->data)
+	while (head->next != c->head)
 	{
-		if (&ft_check_order != 0)
+		if (head->data > head->next->data)
 		{
 			tmp = head->data;
 			head->data = head->next->data;
 			head->next->data = tmp;
-			head = head->next;
+			head = c->head;
 		}
 		else
-			break ;
+			head = head->next;
 	}
 }
 

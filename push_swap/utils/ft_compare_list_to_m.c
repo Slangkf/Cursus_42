@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_find_biggest.c                                  :+:      :+:    :+:   */
+/*   ft_compare_list_to_m.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tclouet <tclouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 15:57:12 by tclouet           #+#    #+#             */
-/*   Updated: 2025/02/05 15:57:14 by tclouet          ###   ########.fr       */
+/*   Created: 2025/02/12 14:54:00 by tclouet           #+#    #+#             */
+/*   Updated: 2025/02/12 15:31:54 by tclouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/push_swap.h"
 
-int	ft_find_biggest_index(t_list *list)
+int	ft_compare_list_to_m(t_list *a, int m)
 {
-	t_node	*current;
-	int		index;
+	t_node	*head;
 
-	current = list->head;
-	ft_index_a(list);
-	while (current->next != list->head)
+	head = a->head;
+	while (head->next != a->head)
 	{
-		if (current->index > index)
-			index = current->index;
-		current = current->next;
+		if (head->index <= m)
+			return (1);
+		else
+			head = head->next;
 	}
-	if (current->index > index)
-			index = current->index;
-	return (index);
+	if (head->next == a->head)
+	{
+		if (head->index <= m)
+			return (1);
+	}
+	return (0); 
 }

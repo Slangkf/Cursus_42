@@ -24,7 +24,10 @@ void	ft_check_and_sort(t_list *a)
 		if (head->data < head->next->data)
 			head = head->next;
 		else
+		{
 			ft_sort_list(a);
+			break ;
+		}
 	}
 	return ;
 }

@@ -12,7 +12,25 @@
 
 #include "../header/push_swap.h"
 
-t_node	*ft_find_smallest(t_list *list)
+int	ft_find_smallest_index(t_list *list)
+{
+	t_node	*current;
+	int		index;
+
+	current = list->head;
+	ft_index_a(list);
+	while (current->next != list->head)
+	{
+		if (current->index < index)
+			index = current->index;
+		current = current->next;
+	}
+	if (current->index < index)
+			index = current->index;
+	return (index);
+}
+
+t_node	*ft_find_smallest_node(t_list *list)
 {
 	t_node	*current;
 	t_node	*smallest;

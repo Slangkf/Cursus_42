@@ -18,7 +18,7 @@ static void	check_and_sort(int m, t_list *a, t_list *b)
 	t_node	*last;
 	int		p;
 
-	smallest = ft_find_smallest(a);
+	smallest = ft_find_smallest_node(a);
 	last = ft_find_last(a);
 	p = ft_find_pos_small(smallest, a);
 	if (p <= m)

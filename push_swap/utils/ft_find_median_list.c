@@ -14,12 +14,8 @@
 
 int	ft_find_median_list(t_list *list)
 {
-	int	i;
+	int	median;
 
-	i = (ft_length_list(list));
-	if (i % 2 == 1)
-		i = ((ft_length_list(list) * 2 + 2) / 4);
-	if (i % 2 == 0)
-		i = (ft_length_list(list) / 2);
-	return (i);
+	median = (ft_find_biggest_index(list) + ft_find_smallest_index(list)) / 2;
+	return (median);
 }
