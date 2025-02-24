@@ -14,25 +14,25 @@
 
 static void	check_and_sort(int m, t_list *a, t_list *b)
 {
-	t_node	*smallest;
 	t_node	*last;
+	int		smallest;
 	int		p;
 
-	smallest = ft_find_smallest_node(a);
-	last = ft_find_last(a);
+	smallest = ft_find_smallest_index(a);
+	last = a->head->prev;
 	p = ft_find_pos_small(smallest, a);
 	if (p <= m)
 	{
-		if (smallest != a->head)
+		if (smallest != a->head->index)
 			ft_swap_a(a);
-		if (smallest == a->head && (ft_check_order(a) == 1))
+		if (smallest == a->head->index && (ft_check_order(a) == 1))
 			ft_push_to_b(a, b);
 	}
 	if (p > m)
 	{
-		while (smallest != a->head)
+		while (smallest != a->head->index)
 			ft_reverse_rotate_a(a);
-		if (smallest == a->head && (ft_check_order(a) == 1))
+		if (smallest == a->head->index && (ft_check_order(a) == 1))
 			ft_push_to_b(a, b);
 	}
 }
@@ -50,4 +50,5 @@ void	ft_sort_four(t_list *a)
 		ft_sort_three(a);
 		ft_push_to_a(b, a);
 	}
+	ft_display_list(a);
 }

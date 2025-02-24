@@ -12,14 +12,14 @@
 
 #include "../header/push_swap.h"
 
-int	ft_find_pos_small(t_node *smallest, t_list *list)
+int	ft_find_pos_small(int smallest, t_list *list)
 {
 	t_node	*head;
 	int		i;
 
 	head = list->head;
 	i = 1;
-	while (head != smallest)
+	while (head->index != smallest)
 	{
 		head = head->next;
 		i++;

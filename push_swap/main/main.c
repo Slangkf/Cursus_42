@@ -19,8 +19,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (1);
 	a = ft_init_list(argc, argv);
+	ft_index_a(a);
 	ft_check_and_sort(a);
-	ft_display_list(a);
-	free(a);
 	return (0);
 }

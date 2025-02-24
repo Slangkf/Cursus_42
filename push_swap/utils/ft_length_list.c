@@ -17,6 +17,8 @@ int	ft_length_list(t_list *list)
 	t_node	*head;
 	int		i;
 
+	if (!list->head)
+		return (0);
 	head = list->head;
 	i = 1;
 	while (head->next != list->head)

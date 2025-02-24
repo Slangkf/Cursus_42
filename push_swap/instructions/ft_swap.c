@@ -22,17 +22,16 @@ void	ft_swap(t_list *list)
 		return ;
 	first = list->head;
 	second = list->head->next;
-	last = list->head;
+	last = list->head->prev;
 	if (second->next == list->head)
 		list->head = list->head->next;
 	else
 	{
-		while (last->next != list->head)
-			last = last->next;
-		list->head = list->head->next;
 		first->next = second->next;
+		first->prev = second;
 		second->next = first;
-		last->next = list->head;
+		second->prev = last;
+		list->head = second;
 	}
 	return ;
 }

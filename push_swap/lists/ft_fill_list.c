@@ -24,6 +24,7 @@ void	ft_fill_list(t_list *list, char *argv)
 	if (!list->head)
 	{
 		new_node->next = new_node;
+		new_node->prev = new_node;
 		list->head = new_node;
 	}
 	else
@@ -32,6 +33,8 @@ void	ft_fill_list(t_list *list, char *argv)
 		while (current->next != list->head)
 			current = current->next;
 		current->next = new_node;
+		new_node->prev = current;
 		new_node->next = list->head;
+		list->head->prev = new_node;
 	}
 }

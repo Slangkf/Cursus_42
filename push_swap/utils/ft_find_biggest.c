@@ -18,14 +18,17 @@ int	ft_find_biggest_index(t_list *list)
 	int		index;
 
 	current = list->head;
-	ft_index_a(list);
+	index = list->head->index;
 	while (current->next != list->head)
 	{
-		if (current->index > index)
+		if (index < current->index)
 			index = current->index;
 		current = current->next;
 	}
-	if (current->index > index)
+	if (current->next == list->head)
+	{
+		if (index < current->index)
 			index = current->index;
+	}
 	return (index);
 }

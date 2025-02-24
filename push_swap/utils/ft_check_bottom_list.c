@@ -16,7 +16,7 @@ int	ft_check_bottom_list(t_list *a, int m)
 {
 	t_node	*tail;
 
-	tail = ft_find_last(a);
+	tail = a->head->prev;
 	if (tail->index < m)
 		return (0);
 	else

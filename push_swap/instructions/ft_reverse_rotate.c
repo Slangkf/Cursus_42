@@ -14,12 +14,10 @@
 
 static void	reverse_rotate(t_list *list)
 {
-	t_node	*first;
+	t_node	*last;
 
-	first = list->head;
-	while (first->next != list->head)
-		first = first->next;
-	list->head = first;
+	last = list->head->prev;
+	list->head = last;
 }
 
 void	ft_reverse_rotate_a(t_list *a)

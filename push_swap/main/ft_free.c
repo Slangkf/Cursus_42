@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_find_smallest.c                                 :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tclouet <tclouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 13:03:27 by tclouet           #+#    #+#             */
-/*   Updated: 2025/02/04 13:03:28 by tclouet          ###   ########.fr       */
+/*   Created: 2025/02/04 17:11:18 by tclouet           #+#    #+#             */
+/*   Updated: 2025/02/04 17:11:19 by tclouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/push_swap.h"
 
-int	ft_find_smallest_index(t_list *list)
+void	ft_free(t_list *list)
 {
-	t_node	*current;
-	int		index;
+	t_node	*tmp;
 
-	current = list->head;
-	index = list->head->index;
-	while (current->next != list->head)
+	if (!list)
+		return ;
+	tmp = list->head;
+	while (tmp->next != list->head)
 	{
-		if (index > current->index)
-			index = current->index;
-		current = current->next;
+		list->head->data = 0;
+		list->head = list->head->next;
 	}
-	if (current->next == list->head)
+	if (list->head->next == tmp)
 	{
-		if (index > current->index)
-			index = current->index;
+		list->head->data = 0;
+		list->head = list->head->next;
 	}
-	return (index);
+	free(list);
 }

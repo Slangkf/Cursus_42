@@ -12,21 +12,6 @@
 
 #include "../header/push_swap.h"
 
-static void	sort_list(t_list *a)
-{
-	int		i;
-
-	i = ft_length_list(a);
-	if (i == 2)
-		ft_swap_a(a);
-	else if (i == 3)
-		ft_sort_three(a);
-	else if (i > 3)
-		write(1,"ERREUR\n", 7);
-	else
-		return ;
-}
-
 static void	make_chunks_and_pb(t_list *a, t_list *b, int m, int mbis)
 {
 	if (a->head->index <= m)
@@ -58,45 +43,42 @@ static	void	empty_list_a(t_list *a, t_list *b)
 
 	m = ((ft_find_biggest_index(a) + ft_find_smallest_index(a)) / 3);
 	mbis = ((m + ft_find_smallest_index(a)) / 2);
-	while (ft_length_list(a) > 3)
+	while (ft_length_list(a) > 2)
 	{
 		while (ft_compare_list_to_m(a, m) != 0)
 			make_chunks_and_pb(a, b, m, mbis);
 		m = ((ft_find_biggest_index(a) + ft_find_smallest_index(a)) / 2);
 		mbis = ((m + ft_find_smallest_index(a)) / 2);
 	}
+	if (ft_length_list(a) <= 2)
+	{
+		ft_push_to_b(a, b);
+		ft_push_to_b(a, b);
+	}
 }
 
-static	void	check_and_pa(t_list *b, t_list *a)
+static	void	check_and_pa(t_list *b, t_list *a, int biggest)
 {
-	int	biggest;
-	int	moves;
-
-	biggest = ft_find_biggest_index(b);
-	moves = ft_count_moves(b);
-	if (b->head->index == biggest)
-		ft_push_to_a(b, a);
-	else if (b->head->index != biggest)
-	{
-		if (moves > 2)
-		{
-			ft_push_to_a(b, a);
-			ft_rotate_a(a);
-		}
-		else if (moves <= 2)
-		{
-			if (ft_find_best_path_tobig(a, biggest) == 0)
-				ft_rotate_b(b);
-			else if (ft_find_best_path_tobig(a, biggest) == 1)
-				ft_reverse_rotate_b(b);
-		}
-	}
+	ft_find_best_path_tobig(b, biggest);
+	ft_push_to_a(b, a);
 }
 
 static	void	fillout_list_a(t_list *a, t_list *b)
 {
-	while (ft_length_list(b) != 1)
-		check_and_pa(b, a);
+	t_node	*head_b;
+	int		biggest;
+
+	head_b = b->head;
+	biggest = ft_find_biggest_index(b);
+	while (ft_length_list(b) != 0)
+	{
+		head_b = b->head;
+		biggest = ft_find_biggest_index(b);
+		if (head_b->index == biggest)
+			ft_push_to_a(b, a);
+		else if (head_b->index != biggest)
+			check_and_pa(b, a, biggest);
+	}
 }
 
 void	ft_sort_more(t_list *a)
@@ -105,8 +87,6 @@ void	ft_sort_more(t_list *a)
 
 	b = ft_create_list();
 	empty_list_a(a, b);
-	if (ft_check_order(a) == 1)
-		sort_list(a);
 	fillout_list_a(a, b);
 	//ft_display_list(a);
 	//ft_display_cloned_list(b);

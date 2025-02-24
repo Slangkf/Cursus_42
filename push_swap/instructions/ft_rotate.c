@@ -14,11 +14,11 @@
 
 static void	rotate(t_list *list)
 {
-	t_node	*last;
+	t_node	*first;
 
-	last = list->head;
-	last = last->next;
-	list->head = last;
+	first = list->head;
+	first = first->next;
+	list->head = first;
 }
 
 void	ft_rotate_a(t_list *a)
