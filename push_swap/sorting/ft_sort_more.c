@@ -38,8 +38,8 @@ static void	make_chunks_and_pb(t_list *a, t_list *b, int m, int mbis)
 
 static	void	empty_list_a(t_list *a, t_list *b)
 {
-	int 		m;
-	int		mbis;
+	int	m;
+	int	mbis;
 
 	m = ((ft_find_biggest_index(a) + ft_find_smallest_index(a)) / 3);
 	mbis = ((m + ft_find_smallest_index(a)) / 2);
@@ -88,6 +88,4 @@ void	ft_sort_more(t_list *a)
 	b = ft_create_list();
 	empty_list_a(a, b);
 	fillout_list_a(a, b);
-	//ft_display_list(a);
-	//ft_display_cloned_list(b);
 }

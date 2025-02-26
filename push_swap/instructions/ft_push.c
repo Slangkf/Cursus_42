@@ -18,7 +18,7 @@ static void	remove_node_first_list(t_list *list)
 	t_node	*last;
 
 	if (!list || !list->head)
-		return;
+		return ;
 	first = list->head;
 	if (first->next == first)
 		list->head = NULL;
@@ -37,7 +37,7 @@ static void	add_to_second_list(t_list *list, t_node *add)
 	t_node	*first;
 
 	if (!list)
-		return;
+		return ;
 	if (!list->head)
 	{
 		add->next = add;
@@ -66,7 +66,6 @@ void	ft_push_to_a(t_list *b, t_list *a)
 	remove_node_first_list(b);
 	add_to_second_list(a, first);
 	write(1, "pa\n", 3);
-
 }
 
 void	ft_push_to_b(t_list *a, t_list *b)

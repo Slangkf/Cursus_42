@@ -18,19 +18,20 @@ void	ft_swap(t_list *list)
 	t_node	*second;
 	t_node	*last;
 
+	second = list->head->next;
 	if (!list || list->head->next == list->head)
 		return ;
-	first = list->head;
-	second = list->head->next;
-	last = list->head->prev;
 	if (second->next == list->head)
-		list->head = list->head->next;
+		list->head = second;
 	else
 	{
+		first = list->head;
+		last = list->head->prev;
 		first->next = second->next;
 		first->prev = second;
 		second->next = first;
 		second->prev = last;
+		last->next = second;
 		list->head = second;
 	}
 	return ;

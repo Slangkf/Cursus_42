@@ -16,7 +16,6 @@ int	ft_check_double(char **argv)
 {
 	int	i;
 	int	j;
-	int	k;
 
 	i = 0;
 	while (argv[i] != NULL)
@@ -24,14 +23,7 @@ int	ft_check_double(char **argv)
 		j = i + 1;
 		while (argv[j] != NULL)
 		{
-			k = 0;
-			while (argv[j][k] == 48 && argv[j][k + 1] != '\0')
-			{
-				k++;
-				if (argv[j][k + 1] == '\0')
-					argv[j] = &argv[j][k];
-			}
-			if (ft_strcmp(argv[i], argv[j]) == 0)
+			if (ft_atol(argv[i]) - ft_atol(argv[j]) == 0)
 				return (1);
 			j++;
 		}

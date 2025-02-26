@@ -29,5 +29,5 @@ int	ft_compare_list_to_m(t_list *a, int m)
 		if (head->index <= m)
 			return (1);
 	}
-	return (0); 
+	return (0);
 }

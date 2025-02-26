@@ -40,7 +40,6 @@ int		main(int argc, char **argv);
 //lists
 t_list	*ft_init_list(int argc, char **argv);
 t_list	*ft_create_list(void);
-
 void	ft_fill_list(t_list *list, char *argv);
 void	ft_display_list(t_list *list);
 void	ft_display_cloned_list(t_list *list);
@@ -53,6 +52,7 @@ void	ft_check_and_sort(t_list *a);
 void	ft_sort_list(t_list *a);
 void	ft_sort_three(t_list *a);
 void	ft_sort_four(t_list *a);
+void	ft_sort_five(t_list *a);
 void	ft_sort_more(t_list *a);
 
 //instructions
@@ -71,12 +71,10 @@ void	ft_reverse_rotate_both(t_list *a, t_list *b);
 
 //utils
 long	ft_atol(const char *s);
-
 void	ft_clone_list(t_list *list);
 void	ft_index_list(t_list *list);
 void	ft_index_a(t_list *a);
-void		ft_find_best_path_tobig(t_list *list, int m);
-
+void	ft_find_best_path_tobig(t_list *list, int m);
 int		ft_find_pos_small(int smallest, t_list *list);
 int		ft_length_list(t_list *list);
 int		ft_find_median_list(t_list *list);
@@ -85,7 +83,6 @@ int		ft_new_isdigit(char **argv);
 int		ft_new_isalpha(char **argv);
 int		ft_check_order(t_list *list);
 int		ft_check_double(char **argv);
-int		ft_length_list(t_list *list);
 int		ft_check_bottom_list(t_list *a, int m);
 int		ft_compare_list_to_m(t_list *a, int m);
 int		ft_find_biggest_index(t_list *list);

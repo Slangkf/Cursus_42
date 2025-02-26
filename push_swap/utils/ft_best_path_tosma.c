@@ -1,62 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_moves.c                                   :+:      :+:    :+:   */
+/*   ft_best_path_tosma.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tclouet <tclouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 15:03:49 by tclouet           #+#    #+#             */
-/*   Updated: 2025/02/14 15:03:50 by tclouet          ###   ########.fr       */
+/*   Created: 2025/02/26 13:01:45 by tclouet           #+#    #+#             */
+/*   Updated: 2025/02/26 13:01:49 by tclouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/push_swap.h"
 
-static int	count_moves_prev(t_list *list, int idx)
+static int	best_path_isbot(t_list *list, int m)
 {
-	t_node	*head;
-	int		count;
+	t_node	*tail;
+	int		i;
 
-	head = list->head;
-	count = 0;
-	while (head->next != list->head)
+	tail = list->head->prev;
+	i = 0;
+	while (tail->prev != list->head)
 	{
-		if (head->index == idx)
+		if (tail->index <= m)
 			break ;
-		head = head->next;
-		count++;
+		tail = tail->prev;
+		i++;
 	}
-	return (count);
+	return (i);
 }
 
-static int	count_moves_next(t_list *list, int idx)
+static int	best_path_istop(t_list *list, int m)
 {
 	t_node	*head;
-	int		count;
+	int		i;
 
 	head = list->head;
-	count = 0;
+	i = 0;
 	while (head->next != list->head)
 	{
-		if (head->index == idx)
+		if (head->index <= m)
 			break ;
 		head = head->next;
-		count++;
+		i++;
 	}
-	return (count);
+	return (i);
 }
 
-int	ft_count_moves(t_list *list)
+int	ft_find_best_path_tosma(t_list *list, int m)
 {
-	int	idx;
-	int	next;
-	int	prev;
+	int	top;
+	int	bottom;
 
-	idx = ft_find_biggest_index(list);
-	next = count_moves_next(list, idx);
-	prev = count_moves_prev(list, idx);
-	if (next <= prev)
-		return (next);
+	top = best_path_istop(list, m);
+	bottom = best_path_isbot(list, m);
+	if (top < bottom)
+		return (0);
 	else
-		return (prev);
+		return (1);
 }

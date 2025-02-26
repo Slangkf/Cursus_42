@@ -50,5 +50,4 @@ void	ft_sort_four(t_list *a)
 		ft_sort_three(a);
 		ft_push_to_a(b, a);
 	}
-	ft_display_list(a);
 }

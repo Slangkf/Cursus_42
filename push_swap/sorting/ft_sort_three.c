@@ -23,16 +23,16 @@ void	ft_sort_three(t_list *a)
 	three = a->head->next->next->data;
 	if (one > two && two < three && three > one)
 		ft_swap_a(a);
-	if (one < two && two > three && three < one)
+	else if (one < two && two > three && three < one)
 		ft_reverse_rotate_a(a);
-	if (one > two && two < three && three < one)
+	else if (one > two && two < three && three < one)
 		ft_rotate_a(a);
-	if (one < two && two > three && three > one)
+	else if (one < two && two > three && three > one)
 	{
 		ft_reverse_rotate_a(a);
 		ft_swap_a(a);
 	}
-	if (one > two && two > three && three < one)
+	else if (one > two && two > three && three < one)
 	{
 		ft_swap_a(a);
 		ft_reverse_rotate_a(a);
