@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_isdigit.c                                   :+:      :+:    :+:   */
+/*   ft_count_sub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tclouet <tclouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 14:38:37 by tclouet           #+#    #+#             */
-/*   Updated: 2025/01/29 15:43:56 by tclouet          ###   ########.fr       */
+/*   Created: 2025/03/03 13:36:24 by tclouet           #+#    #+#             */
+/*   Updated: 2025/03/03 13:36:25 by tclouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/push_swap.h"
 
-int	ft_new_isdigit(char *str)
+int	ft_count_sub(const char *s, char c)
 {
 	int	i;
+	int	check;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
+	check = 0;
+	while (*s)
 	{
-		if (str[i] == 43 || str[i] == 45)
+		if (*s != c && check == 0)
 		{
-			if (str[i + 1] == '\0')
-				return (1);
-			if (!(str[i + 1] >= 48 && str[i + 1] <= 57))
-				return (1);
+			check = 1;
 			i++;
 		}
-		if (!(str[i] >= 48 && str[i] <= 57))
-			return (1);
-		i++;
+		else if (*s == c)
+			check = 0;
+		s++;
 	}
-	return (0);
+	return (i);
 }

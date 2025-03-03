@@ -12,42 +12,85 @@
 
 #include "../header/push_swap.h"
 
-static void	check_and_sort(int m, t_list *a, t_list *b)
+static int	best_path_isbot(t_list *list, int smallest)
 {
-	t_node	*last;
-	int		smallest;
-	int		p;
+	t_node	*tail;
+	int		i;
 
-	smallest = ft_find_smallest_index(a);
-	last = a->head->prev;
-	p = ft_find_pos_small(smallest, a);
-	if (p <= m)
+	tail = list->head->prev;
+	i = 0;
+	while (tail->index != smallest)
 	{
-		if (smallest != a->head->index)
-			ft_swap_a(a);
-		if (smallest == a->head->index && (ft_check_order(a) == 1))
-			ft_push_to_b(a, b);
+		tail = tail->prev;
+		i++;
 	}
-	if (p > m)
+	return (i);
+}
+
+static int	best_path_istop(t_list *list, int smallest)
+{
+	t_node	*head;
+	int		i;
+
+	head = list->head;
+	i = 0;
+	while (head->index != smallest)
 	{
-		while (smallest != a->head->index)
-			ft_reverse_rotate_a(a);
-		if (smallest == a->head->index && (ft_check_order(a) == 1))
-			ft_push_to_b(a, b);
+		head = head->next;
+		i++;
 	}
+	return (i);
+}
+
+static void	bring_up_smallest(t_list *list, int smallest, int top, int bottom)
+{
+	t_node	*head;
+
+	head = list->head;
+	if (top <= bottom)
+	{
+		while (head->index != smallest)
+		{
+			ft_rotate_a(list);
+			head = list->head;
+			if (head->index == smallest)
+				break ;
+		}
+	}
+	else if (top > bottom)
+	{
+		while (head->index != smallest)
+		{
+			ft_reverse_rotate_a(list);
+			head = list->head;
+			if (head->index == smallest)
+				break ;
+		}
+	}
+}
+
+static void	find_best_path_tosma(t_list *list, int smallest)
+{
+	int		top;
+	int		bottom;
+
+	top = best_path_istop(list, smallest);
+	bottom = best_path_isbot(list, smallest);
+	bring_up_smallest(list, smallest, top, bottom);
 }
 
 void	ft_sort_four(t_list *a)
 {
 	t_list	*b;
-	int		m;
+	int		smallest;
 
 	b = ft_create_list();
-	m = ft_find_median_list(a);
-	check_and_sort(m, a, b);
+	smallest = ft_find_smallest_index(a);
+	find_best_path_tosma(a, smallest);
+	ft_push_to_b(a, b);
 	if (ft_check_order(a) == 1)
-	{
 		ft_sort_three(a);
-		ft_push_to_a(b, a);
-	}
+	ft_push_to_a(b, a);
+	ft_free_list(b);
+	free(b);
 }

@@ -38,14 +38,15 @@ typedef struct s_list
 int		main(int argc, char **argv);
 
 //lists
-t_list	*ft_init_list(int argc, char **argv);
 t_list	*ft_create_list(void);
-void	ft_fill_list(t_list *list, char *argv);
+int		ft_init_list(t_list *a, int argc, char **argv);
+void	ft_fill_list(t_list *list, int data);
 void	ft_display_list(t_list *list);
 void	ft_display_cloned_list(t_list *list);
 
 //checks
 int		ft_check_input(char **argv);
+int		ft_check_string_input(char **input);
 
 //sorting
 void	ft_check_and_sort(t_list *a);
@@ -70,17 +71,19 @@ void	ft_reverse_rotate_b(t_list *b);
 void	ft_reverse_rotate_both(t_list *a, t_list *b);
 
 //utils
-long	ft_atol(const char *s);
 void	ft_clone_list(t_list *list);
-void	ft_index_list(t_list *list);
-void	ft_index_a(t_list *a);
+void	ft_index_list_a(t_list *list);
+void	ft_index_list_c(t_list *list);
+void	ft_clone_a(t_list *a);
 void	ft_find_best_path_tobig(t_list *list, int m);
+void	ft_free_list(t_list *list);
+long	ft_atol(const char *s);
 int		ft_find_pos_small(int smallest, t_list *list);
 int		ft_length_list(t_list *list);
 int		ft_find_median_list(t_list *list);
 int		ft_new_strchr(const char *s, int c);
-int		ft_new_isdigit(char **argv);
-int		ft_new_isalpha(char **argv);
+int		ft_new_isdigit(char *str);
+int		ft_new_isalpha(char *str);
 int		ft_check_order(t_list *list);
 int		ft_check_double(char **argv);
 int		ft_check_bottom_list(t_list *a, int m);
@@ -89,4 +92,5 @@ int		ft_find_biggest_index(t_list *list);
 int		ft_find_smallest_index(t_list *list);
 int		ft_find_best_path_tosma(t_list *list, int m);
 int		ft_count_moves(t_list *list);
+int		ft_count_sub(const char *s, char c);
 #endif

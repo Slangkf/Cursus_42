@@ -12,51 +12,52 @@
 
 #include "../header/push_swap.h"
 
-static t_list	*separ_args(char **argv)
+static int	separ_args(t_list *a, char **argv)
 {
-	t_list	*a;
+	int		j;
+	int		count;
 	char	**input;
-	int		i;
 
-	a = ft_create_list();
-	input = ft_split(argv[1], 32);
-	i = 0;
-	while (input[i])
+	j = 0;
+	count = ft_count_sub(argv[1], ' ');
+	input = ft_split(argv[1], ' ');
+	if (ft_check_string_input(input) == 1)
 	{
-		if (ft_check_input(&input[i]) == 1)
-		{
-			write(2, "Error\n", 6);
-			exit (0);
-		}
-		ft_fill_list(a, input[i]);
-		free(input[i]);
-		i++;
+		while (count--)
+			free(input[count]);
+		free(input);
+		return (1);
 	}
+	while (input[j] != NULL)
+	{
+		ft_fill_list(a, ft_atoi(input[j]));
+		j++;
+	}
+	while (count--)
+		free(input[count]);
 	free(input);
-	return (a);
+	return (0);
 }
 
-t_list	*ft_init_list(int argc, char **argv)
+int	ft_init_list(t_list *a, int argc, char **argv)
 {
-	t_list	*a;
-	int		i;
+	int	i;
 
-	a = ft_create_list();
 	i = 1;
 	if (argc == 2)
-		a = separ_args(argv);
-	else
 	{
+		if (separ_args(a, argv) == 1)
+			return (1);
+	}
+	else if (argc > 2)
+	{
+		if (ft_check_input(argv) == 1)
+			return (1);
 		while (i < argc)
 		{
-			if (ft_check_input(&argv[i]) == 1)
-			{
-				write(2, "Error\n", 6);
-				exit (0);
-			}
-			ft_fill_list(a, argv[i]);
+			ft_fill_list(a, ft_atoi(argv[i]));
 			i++;
 		}
 	}
-	return (a);
+	return (0);
 }

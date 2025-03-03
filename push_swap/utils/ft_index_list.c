@@ -12,7 +12,21 @@
 
 #include "../header/push_swap.h"
 
-void	ft_index_list(t_list *list)
+void	ft_index_list_a(t_list *list)
+{
+	t_node	*head;
+
+	head = list->head;
+	while (head->next != list->head)
+	{
+		head->index = 0;
+		head = head->next;
+	}
+	if (head->next == list->head)
+		head->index = 0;
+}
+
+void	ft_index_list_c(t_list *list)
 {
 	t_node	*head;
 	int		i;

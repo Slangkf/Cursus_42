@@ -12,13 +12,13 @@
 
 #include "../header/push_swap.h"
 
-static int	ft_best_ptbi_is_bottom(t_list *list, int smallest)
+static int	best_path_isbot(t_list *list, int smallest)
 {
 	t_node	*tail;
 	int		i;
 
 	tail = list->head->prev;
-	i = 1;
+	i = 0;
 	while (tail->index != smallest)
 	{
 		tail = tail->prev;
@@ -27,7 +27,7 @@ static int	ft_best_ptbi_is_bottom(t_list *list, int smallest)
 	return (i);
 }
 
-static int	ft_best_ptbi_is_top(t_list *list, int smallest)
+static int	best_path_istop(t_list *list, int smallest)
 {
 	t_node	*head;
 	int		i;
@@ -42,14 +42,10 @@ static int	ft_best_ptbi_is_top(t_list *list, int smallest)
 	return (i);
 }
 
-static void	find_best_path_tobig(t_list *list, int smallest)
+static void	bring_up_smallest(t_list *list, int smallest, int top, int bottom)
 {
 	t_node	*head;
-	int		top;
-	int		bottom;
 
-	top = ft_best_ptbi_is_top(list, smallest);
-	bottom = ft_best_ptbi_is_bottom(list, smallest);
 	head = list->head;
 	if (top <= bottom)
 	{
@@ -73,6 +69,16 @@ static void	find_best_path_tobig(t_list *list, int smallest)
 	}
 }
 
+static void	find_best_path_tosma(t_list *list, int smallest)
+{
+	int		top;
+	int		bottom;
+
+	top = best_path_istop(list, smallest);
+	bottom = best_path_isbot(list, smallest);
+	bring_up_smallest(list, smallest, top, bottom);
+}
+
 void	ft_sort_five(t_list *a)
 {
 	t_list	*b;
@@ -80,12 +86,14 @@ void	ft_sort_five(t_list *a)
 
 	b = ft_create_list();
 	smallest = ft_find_smallest_index(a);
-	find_best_path_tobig(a, smallest);
+	find_best_path_tosma(a, smallest);
 	ft_push_to_b(a, b);
-	find_best_path_tobig(a, ft_find_smallest_index(a));
+	find_best_path_tosma(a, ft_find_smallest_index(a));
 	ft_push_to_b(a, b);
 	if (ft_check_order(a) == 1)
 		ft_sort_three(a);
 	ft_push_to_a(b, a);
 	ft_push_to_a(b, a);
+	ft_free_list(b);
+	free(b);
 }

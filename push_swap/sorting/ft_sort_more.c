@@ -88,4 +88,6 @@ void	ft_sort_more(t_list *a)
 	b = ft_create_list();
 	empty_list_a(a, b);
 	fillout_list_a(a, b);
+	ft_free_list(b);
+	free(b);
 }

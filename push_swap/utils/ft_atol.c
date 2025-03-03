@@ -32,10 +32,5 @@ long	ft_atol(const char *s)
 		result = result * 10 + (*s - '0');
 		s++;
 	}
-	if ((result * sign) > 2147483647 || (result * sign) < -2147483648)
-	{
-		ft_printf("Error\n");
-		exit (0);
-	}
 	return (result * sign);
 }

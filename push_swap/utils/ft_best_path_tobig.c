@@ -42,14 +42,10 @@ static int	best_path_istop(t_list *list, int biggest)
 	return (i);
 }
 
-void	ft_find_best_path_tobig(t_list *list, int biggest)
+static void	bring_up_biggest(t_list *list, int biggest, int top, int bottom)
 {
-	int	top;
-	int	bottom;
 	t_node	*head;
 
-	top = best_path_istop(list, biggest);
-	bottom = best_path_isbot(list, biggest);
 	head = list->head;
 	if (top <= bottom)
 	{
@@ -60,7 +56,6 @@ void	ft_find_best_path_tobig(t_list *list, int biggest)
 			if (head->index == biggest)
 				break ;
 		}
-
 	}
 	else if (top > bottom)
 	{
@@ -72,4 +67,14 @@ void	ft_find_best_path_tobig(t_list *list, int biggest)
 				break ;
 		}
 	}
+}
+
+void	ft_find_best_path_tobig(t_list *list, int biggest)
+{
+	int		top;
+	int		bottom;
+
+	top = best_path_istop(list, biggest);
+	bottom = best_path_isbot(list, biggest);
+	bring_up_biggest(list, biggest, top, bottom);
 }

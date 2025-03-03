@@ -12,23 +12,19 @@
 
 #include "../header/push_swap.h"
 
-int	ft_new_isalpha(char **argv)
+int	ft_new_isalpha(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (argv[i] != NULL)
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
 	{
-		j = 0;
-		while (argv[i][j] != '\0')
-		{
-			if (argv[i][j] >= 65 && argv[i][j] <= 90)
-				return (1);
-			if (argv[i][j] >= 97 && argv[i][j] <= 122)
-				return (1);
-			j++;
-		}
+		if (str[i] >= 65 && str[i] <= 90)
+			return (1);
+		if (str[i] >= 97 && str[i] <= 122)
+			return (1);
 		i++;
 	}
 	return (0);
