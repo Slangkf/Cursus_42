@@ -86,6 +86,7 @@ int		ft_new_isdigit(char *str);
 int		ft_new_isalpha(char *str);
 int		ft_check_order(t_list *list);
 int		ft_check_double(char **argv);
+int		ft_check_double_string(char **argv);
 int		ft_check_bottom_list(t_list *a, int m);
 int		ft_compare_list_to_m(t_list *a, int m);
 int		ft_find_biggest_index(t_list *list);

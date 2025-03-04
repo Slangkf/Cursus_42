@@ -15,6 +15,7 @@
 static void	remove_node_first_list(t_list *list)
 {
 	t_node	*first;
+	t_node	*second;
 	t_node	*last;
 
 	if (!list || !list->head)
@@ -24,21 +25,22 @@ static void	remove_node_first_list(t_list *list)
 		list->head = NULL;
 	else
 	{
+		second = first->next;
 		last = first->prev;
-		list->head = first->next;
-		last->next = list->head;
-		list->head->prev = last;
+		last->next = second;
+		second->prev = last;
+		list->head = second;
 	}
 }
 
 static void	add_to_second_list(t_list *list, t_node *add)
 {
-	t_node	*last;
 	t_node	*first;
+	t_node	*last;
 
 	if (!list)
 		return ;
-	if (!list->head)
+	if (list->head == NULL)
 	{
 		add->next = add;
 		add->prev = add;
@@ -47,11 +49,13 @@ static void	add_to_second_list(t_list *list, t_node *add)
 	else
 	{
 		first = list->head;
-		last = list->head->prev;
+		last = list->head;
+		while (last->next != list->head)
+			last = last->next;
 		add->next = first;
 		add->prev = last;
-		last->next = add;
 		first->prev = add;
+		last->next = add;
 		list->head = add;
 	}
 }

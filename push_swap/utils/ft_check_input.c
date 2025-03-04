@@ -29,7 +29,7 @@ int	ft_check_string_input(char **input)
 			return (1);
 		i++;
 	}
-	if (ft_check_double(input) == 1)
+	if (ft_check_double_string(input) == 1)
 		return (1);
 	return (0);
 }
