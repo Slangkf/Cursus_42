@@ -21,6 +21,8 @@ static int	separ_args(t_list *a, char **argv)
 	j = 0;
 	count = ft_count_sub(argv[1], ' ');
 	input = ft_split(argv[1], ' ');
+	if (!input)
+		return (1);
 	if (ft_check_string_input(input) == 1)
 	{
 		while (count--)

@@ -6,7 +6,7 @@ OBJECTS = ${SOURCES:.c=.o}
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# Include LIBFT
+#LIBFT
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INC = -L$(LIBFT_DIR) -lft

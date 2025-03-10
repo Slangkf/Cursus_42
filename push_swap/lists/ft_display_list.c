@@ -19,10 +19,10 @@ void	ft_display_cloned_list(t_list *list)
 	if (!list->head)
 		return ;
 	current = list->head;
-	printf("\nB list : ");
+	ft_printf("\nB list : ");
 	while (1)
 	{
-		printf("%d (%d) -> ", current->data, current->index);
+		ft_printf("%d (%d) -> ", current->data, current->index);
 		current = current->next;
 		if (current == list->head)
 			break ;
@@ -36,10 +36,10 @@ void	ft_display_list(t_list *list)
 	if (!list->head)
 		return ;
 	current = list->head;
-	printf("\nA list : ");
+	ft_printf("\nA list : ");
 	while (1)
 	{
-		printf("%d (%d) -> ", current->data, current->index);
+		ft_printf("%d (%d) -> ", current->data, current->index);
 		current = current->next;
 		if (current == list->head)
 			break ;

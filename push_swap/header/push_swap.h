@@ -77,6 +77,7 @@ void	ft_index_list_c(t_list *list);
 void	ft_clone_a(t_list *a);
 void	ft_find_best_path_tobig(t_list *list, int m);
 void	ft_free_list(t_list *list);
+void	ft_free_all(t_list *list);
 long	ft_atol(const char *s);
 int		ft_find_pos_small(int smallest, t_list *list);
 int		ft_length_list(t_list *list);

@@ -12,33 +12,6 @@
 
 #include "../header/push_swap.h"
 
-/*void	ft_free_list(t_list *list)
-{
-	t_node	*current;
-	t_node	*tmp;
-
-	if (!list || !list->head)
-		return ;
-	current = list->head;
-	if (list->head->next == list->head)
-	{
-		free(list->head);
-		list->head = NULL;
-		free(list);
-		return ;
-	}
-	while (current)
-	{
-		tmp = current->next;
-		free(current);
-		if (tmp == list->head)
-			break ;
-		current = tmp;
-	}
-	list->head = NULL;
-	free(list);
-}*/
-
 void	ft_free_list(t_list *list)
 {
 	t_node	*current;

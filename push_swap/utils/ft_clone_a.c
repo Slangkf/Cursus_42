@@ -59,7 +59,7 @@ static void	fill_clone(t_list *c, t_node *head_a)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		return (free(c));
+		exit (EXIT_FAILURE);
 	new_node->data = head_a->data;
 	if (!c->head)
 	{

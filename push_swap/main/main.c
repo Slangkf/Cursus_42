@@ -12,7 +12,7 @@
 
 #include "../header/push_swap.h"
 
-static void	free_all(t_list *list)
+void	ft_free_all(t_list *list)
 {
 	ft_free_list(list);
 	free(list);
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	if (argc < 2 || (argc == 2 && ft_count_sub(argv[1], ' ') == 1))
+	if (argc < 2 || (argc == 2 && ft_count_sub(argv[1], ' ') <= 1))
 		return (1);
 	if (argv[1][0])
 	{
@@ -35,13 +35,13 @@ int	main(int argc, char **argv)
 		if (ft_init_list(a, argc, argv) == 1)
 		{
 			write(2, "Error\n", 6);
-			free_all(a);
+			ft_free_all(a);
 			return (1);
 		}
 		if (ft_length_list(a) >= 4)
 			ft_clone_a(a);
 		ft_check_and_sort(a);
-		free_all(a);
+		ft_free_all(a);
 	}
 	return (0);
 }
