@@ -12,50 +12,28 @@
 
 #include "../header/pipex.h"
 
-int	check_args(char **argv, char **envp)
-{
-	char	**cmd1;
-	char	**cmd2;
-	char	*path1;
-	char	*path2;
-
-	if (ft_count_sub(argv[2], ' ') < 1 || ft_count_sub(argv[3], ' ') < 1)
-		return (1);
-	cmd1 = ft_split(argv[2], ' ');
-	cmd2 = ft_split(argv[3], ' ');
-	path1 = ft_find_good_path(cmd1[0], envp);
-	path2 = ft_find_good_path(cmd2[0], envp);
-	if (!path1 || !path2)
-	{
-		free(path1);
-		free(path2);
-		ft_free_all(cmd1);
-		ft_free_all(cmd2);
-		return (1);
-	}
-	free(path1);
-	free(path2);
-	ft_free_all(cmd1);
-	ft_free_all(cmd2);
-	return (0);
-}
-
 void	execute_cmd(char *argv, char **envp)
 {
 	char	**cmd;
 	char	*good_path;
 
 	cmd = ft_split(argv, ' ');
-	if (!cmd)
+	if (!cmd[0] || !cmd)
 	{
 		ft_free_all(cmd);
-		exit(1);
+		exit(0);
 	}
 	good_path = ft_find_good_path(cmd[0], envp);
 	if (!good_path)
+	{
+		ft_free_all(cmd);
 		ft_print_error();
+	}
 	if (execve(good_path, cmd, envp) == -1)
+	{
+		ft_free_all(cmd);
 		ft_print_error();
+	}
 }
 
 char	*ft_find_good_path(char *argv, char **envp)

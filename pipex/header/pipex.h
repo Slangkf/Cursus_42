@@ -25,10 +25,12 @@
 int		main(int argc, char **argv, char **envp);
 
 //utils
-int		check_args(char **argv, char **envp);
-int		ft_count_sub(const char *s, char c);
+int		check_args(char **argv);
 char	*ft_find_good_path(char *argv, char **envp);
 void	ft_free_all(char **paths);
 void	ft_print_error(void);
 void	execute_cmd(char *argv, char **envp);
+void	read_from_infile(int infile_fd, int pipe_fd);
+void	read_from_stdin(int pipe_fd, int outfile);
+
 #endif

@@ -12,23 +12,46 @@
 
 #include "../header/pipex.h"
 
-int	ft_count_sub(const char *s, char c)
-{
-	int	i;
-	int	check;
+void	read_from_infile(int infile_fd, int pipe_fd)
+{	
+	char	*buffer;
+	ssize_t	bytes_read;
 
-	i = 0;
-	check = 0;
-	while (*s)
+	buffer = ft_calloc(4096, sizeof(char));
+	if (!buffer)
+		ft_print_error();
+	bytes_read = 1;
+	while (bytes_read > 0)
 	{
-		if (*s != c && check == 0)
+		bytes_read = read(infile_fd, buffer, sizeof(buffer));
+		if (bytes_read == -1)
 		{
-			check = 1;
-			i++;
+			free(buffer);
+			ft_print_error();
 		}
-		else if (*s == c)
-			check = 0;
-		s++;
+		write(pipe_fd, buffer, bytes_read);
 	}
-	return (i);
+	free(buffer);
+}
+
+void	read_from_stdin(int pipe_fd, int outfile_fd)
+{	
+	char	*buffer;
+	ssize_t	bytes_read;
+
+	buffer = ft_calloc(4096, sizeof(char));
+	if (!buffer)
+		ft_print_error();
+	bytes_read = 1;
+	while (bytes_read > 0)
+	{
+		bytes_read = read(pipe_fd, buffer, sizeof(buffer));
+		if (bytes_read == -1)
+		{
+			free(buffer);
+			ft_print_error();
+		}
+		write(outfile_fd, buffer, bytes_read);
+	}
+	free(buffer);
 }
