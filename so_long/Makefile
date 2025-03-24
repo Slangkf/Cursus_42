@@ -1,5 +1,5 @@
 NAME = so_long
-SOURCES = main/main.c main/image_manag.c main/keyboard_manag.c utils/init_map.c utils/parsing.c utils/parsing2.c utils/utils.c utils/utils2.c
+SOURCES = main/main.c main/image_manag.c main/image_manag2.c main/keyboard_manag.c utils/parsing.c utils/parsing2.c utils/utils.c utils/utils2.c utils/utils3.c
 
 OBJECTS = ${SOURCES:.c=.o}
 

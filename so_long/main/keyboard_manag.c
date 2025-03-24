@@ -14,53 +14,87 @@
 
 static void	moove_up(t_game *game)
 {
-	game->map[game->y_pos][game->x_pos] = '0';
-	game->y_pos--;
-	game->map[game->y_pos][game->x_pos] = 'P';
+	if (game->map[game->y_pos - 1][game->x_pos] == 'C')
+		game->coin_nb--;
+	if (game->map[game->y_pos - 1][game->x_pos] != 'E')
+	{
+		game->map[game->y_pos][game->x_pos] = '0';
+		game->y_pos--;
+		game->map[game->y_pos][game->x_pos] = 'P';
+		ft_display_map(game);
+	}
+	else if (game->map[game->y_pos - 1][game->x_pos] == 'E'
+		&& game->coin_nb == 0)
+		ft_win_game(game);
+	else
+		return ;
 }
 
 static void	moove_down(t_game *game)
 {
-	game->map[game->y_pos][game->x_pos] = '0';
-	game->y_pos++;
-	game->map[game->y_pos][game->x_pos] = 'P';
+	if (game->map[game->y_pos + 1][game->x_pos] == 'C')
+		game->coin_nb--;
+	if (game->map[game->y_pos + 1][game->x_pos] != 'E')
+	{
+		game->map[game->y_pos][game->x_pos] = '0';
+		game->y_pos++;
+		game->map[game->y_pos][game->x_pos] = 'P';
+		ft_display_map(game);
+	}
+	else if (game->map[game->y_pos + 1][game->x_pos] == 'E'
+		&& game->coin_nb == 0)
+		ft_win_game(game);
+	else
+		return ;
 }
 
 static void	moove_left(t_game *game)
 {
-	game->map[game->y_pos][game->x_pos] = '0';
-	game->x_pos--;
-	game->map[game->y_pos][game->x_pos] = 'P';
+	if (game->map[game->y_pos][game->x_pos - 1] == 'C')
+		game->coin_nb--;
+	if (game->map[game->y_pos][game->x_pos - 1] != 'E')
+	{
+		game->map[game->y_pos][game->x_pos] = '0';
+		game->x_pos--;
+		game->map[game->y_pos][game->x_pos] = 'P';
+		ft_display_map(game);
+	}
+	else if (game->map[game->y_pos][game->x_pos - 1] == 'E'
+		&& game->coin_nb == 0)
+		ft_win_game(game);
+	else
+		return ;
 }
 
 static void	moove_right(t_game *game)
 {
-	game->map[game->y_pos][game->x_pos] = '0';
-	game->x_pos++;
-	game->map[game->y_pos][game->x_pos] = 'P';
+	if (game->map[game->y_pos][game->x_pos + 1] == 'C')
+		game->coin_nb--;
+	if (game->map[game->y_pos][game->x_pos + 1] != 'E')
+	{
+		game->map[game->y_pos][game->x_pos] = '0';
+		game->x_pos++;
+		game->map[game->y_pos][game->x_pos] = 'P';
+		ft_display_map(game);
+	}
+	else if (game->map[game->y_pos][game->x_pos + 1] == 'E'
+		&& game->coin_nb == 0)
+		ft_win_game(game);
+	else
+		return ;
 }
 
-int	ft_movements_manag(int keycode, t_game *game)
+int	ft_keyboard_manag(int keycode, t_game *game)
 {
 	if (keycode == 119 && game->map[game->y_pos - 1][game->x_pos] != '1')
-	{
 		moove_up(game);
-		ft_display_map(game);
-	}
 	if (keycode == 115 && game->map[game->y_pos + 1][game->x_pos] != '1')
-	{
 		moove_down(game);
-		ft_display_map(game);
-	}
 	if (keycode == 97 && game->map[game->y_pos][game->x_pos - 1] != '1')
-	{
 		moove_left(game);
-		ft_display_map(game);
-	}
 	if (keycode == 100 && game->map[game->y_pos][game->x_pos + 1] != '1')
-	{
 		moove_right(game);
-		ft_display_map(game);
-	}
+	if (keycode == 65307)
+		ft_close_game(game);
 	return (0);
 }

@@ -14,29 +14,11 @@
 
 void	ft_load_images(t_game *game)
 {
-	int	width;
-	int	height;
-
-	game->wall = mlx_xpm_file_to_image(game->mlx, "textures/wall.xpm",
-			&width, &height);
-	if (!game->wall)
-		ft_perror();
-	game->floor = mlx_xpm_file_to_image(game->mlx, "textures/floor.xpm",
-			&width, &height);
-	if (!game->floor)
-		ft_perror();
-	game->player = mlx_xpm_file_to_image(game->mlx, "textures/player.xpm",
-			&width, &height);
-	if (!game->player)
-		ft_perror();
-	game->exit = mlx_xpm_file_to_image(game->mlx, "textures/exit.xpm",
-			&width, &height);
-	if (!game->exit)
-		ft_perror();
-	game->coin = mlx_xpm_file_to_image(game->mlx, "textures/coin.xpm",
-			&width, &height);
-	if (!game->coin)
-		ft_perror();
+	ft_load_wall_img(game);
+	ft_load_floor_img(game);
+	ft_load_player_img(game);
+	ft_load_exit_img(game);
+	ft_load_coin_img(game);
 }
 
 static void	img_to_wdw(t_game *game, void *img, int x, int y)

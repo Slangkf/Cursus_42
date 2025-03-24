@@ -86,3 +86,32 @@ char	**ft_map_clone(t_game *game)
 	cloned_map[i] = NULL;
 	return (cloned_map);
 }
+
+void	ft_init_map(char *argv, t_game *game)
+{
+	int		map_fd;
+	char	*line;
+	char	*map;
+	char	*tmp_map;
+
+	map_fd = open(argv, O_RDONLY);
+	if (map_fd == -1)
+		ft_perror();
+	map = ft_strdup("");
+	game->row = 0;
+	while (1)
+	{
+		line = get_next_line(map_fd);
+		if (line == NULL)
+			break ;
+		tmp_map = map;
+		map = ft_strjoin(map, line);
+		free(tmp_map);
+		free(line);
+		game->row++;
+	}
+	close(map_fd);
+	game->map = ft_split(map, '\n');
+	free(map);
+	game->column = ft_strlen(game->map[0]);
+}

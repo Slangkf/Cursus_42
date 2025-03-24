@@ -55,9 +55,17 @@ typedef struct s_game
 
 //main
 int		main(int argc, char **argv);
-int		ft_movements_manag(int keycode, t_game *game);
+int		ft_keyboard_manag(int keycode, t_game *game);
+int		ft_close_game(t_game *game);
+int		ft_win_game(t_game *game);
+int		ft_exit_solong(t_game *game);
 void	ft_init_map(char *argv, t_game *game);
 void	ft_load_images(t_game *game);
+void	ft_load_wall_img(t_game *game);
+void	ft_load_floor_img(t_game *game);
+void	ft_load_player_img(t_game *game);
+void	ft_load_exit_img(t_game *game);
+void	ft_load_coin_img(t_game *game);
 void	ft_display_map(t_game *game);
 
 //parsing

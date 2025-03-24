@@ -16,7 +16,7 @@ int	ft_check_input(int argc, char **argv)
 {
 	if (argc != 2)
 		return (1);
-	else if (ft_strrnchr(argv[1], ".ber", 4) == 1)
+	if (ft_strrnchr(argv[1], ".ber", 4) == 1)
 		return (1);
 	return (0);
 }

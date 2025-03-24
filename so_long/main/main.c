@@ -34,8 +34,10 @@ int	main(int argc, char **argv)
 	if (ft_check_map(game) == 1)
 		return (ft_free_struc(game), write(2, "Error: invalid map\n", 19));
 	init_game(game);
-	mlx_key_hook(game->window, &ft_movements_manag, game);
+	mlx_key_hook(game->window, &ft_keyboard_manag, game);
+	mlx_hook(game->window, 17, 0L, &ft_close_game, game);
 	mlx_loop(game->mlx);
 	ft_free_struc(game);
+	ft_exit_solong(game);
 	return (0);
 }
