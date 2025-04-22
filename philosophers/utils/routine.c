@@ -14,15 +14,11 @@
 
 static void	is_thinking(t_philo *philo)
 {
-	if (ft_check_dead_flag(philo->table) != 0)
-		return;
 	ft_display_state_message(philo, "\033[32mis thinking\033[0m");
 }
 
 static void	is_sleeping(t_philo *philo)
 {
-	if (ft_check_dead_flag(philo->table) != 0)
-		return;
 	ft_display_state_message(philo, "\033[34mis sleeping\033[0m");
 	ft_usleep(philo->table->time_tosleep);
 }
