@@ -27,5 +27,7 @@ int	main(int argc, char **argv)
 	if (ft_start_routine(philo, &table) != 0)
 		return (write(2, "Thread creation error\n", 27));
 	ft_start_monitoring(philo);
+	ft_free_table_struct(&table);
+	free(philo);
 	return (0);
 }

@@ -45,37 +45,15 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-size_t	ft_get_start_time(void)
-{
-	struct timeval	simu_start;
-	size_t			seconds;
-	size_t			microseconds;
-	size_t			milliseconds;
-
-	gettimeofday(&simu_start, NULL);
-	seconds = simu_start.tv_sec;
-	microseconds = simu_start.tv_usec;
-	return (milliseconds = (simu_start.tv_sec * 1000)
-		+ (simu_start.tv_usec / 1000));
-}
-
-size_t	ft_get_step_time(t_philo *philo)
-{
-	struct timeval	timestamp;
-	size_t		time;
-	size_t		step_timestamp;
-
-	gettimeofday(&timestamp, NULL);
-	time = (timestamp.tv_sec * 1000) + (timestamp.tv_usec / 1000);
-	step_timestamp = time - philo->table->start_time;
-	return (step_timestamp);
-}
-
 void	ft_display_state_message(t_philo *philo, char *message)
 {
-	pthread_mutex_lock(&philo->table->access_to_mealstarget);
-	pthread_mutex_lock(&philo->table->access_to_statemessage);
-	printf("[%zu ms] %d %s\n", ft_get_step_time(philo), philo->id, message);
-	pthread_mutex_unlock(&philo->table->access_to_statemessage);
-	pthread_mutex_unlock(&philo->table->access_to_mealstarget);
+	pthread_mutex_lock(&philo->table->print_lock);
+	if (ft_check_dead_flag(philo->table) == 0)
+	{
+		pthread_mutex_lock(&philo->table->start_time_lock);
+		printf("%zu %d %s\n", (ft_get_current_time() - philo->table->start_time),
+			philo->id, message);
+		pthread_mutex_unlock(&philo->table->start_time_lock);
+	}
+	pthread_mutex_unlock(&philo->table->print_lock);
 }

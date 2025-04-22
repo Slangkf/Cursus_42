@@ -24,7 +24,6 @@ static int	init_forks_array(t_program *table)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 		{
-			pthread_mutex_destroy(&table->access_to_statemessage);
 			free(table->forks);
 			return (write(2, "Mutex init error\n", 17));
 		}
@@ -35,24 +34,12 @@ static int	init_forks_array(t_program *table)
 
 static int	init_mutexes(t_program *table)
 {
-	if (pthread_mutex_init(&table->access_to_statemessage, NULL) != 0)
-		return (write(2, "Mutex init error\n", 17));
-	if (pthread_mutex_init(&table->access_to_mealstarget, NULL) != 0)
+	if (pthread_mutex_init(&table->print_lock, NULL) != 0
+		|| pthread_mutex_init(&table->meal_lock, NULL) != 0
+		|| pthread_mutex_init(&table->deadflag_lock, NULL) != 0
+		|| pthread_mutex_init(&table->start_time_lock, NULL) != 0)
 	{
-		pthread_mutex_destroy(&table->access_to_statemessage);
-		return (write(2, "Mutex init error\n", 17));
-	}
-	if (pthread_mutex_init(&table->access_to_deadflag, NULL) != 0)
-	{
-		pthread_mutex_destroy(&table->access_to_statemessage);
-		pthread_mutex_destroy(&table->access_to_mealstarget);
-		return (write(2, "Mutex init error\n", 17));
-	}
-	if (pthread_mutex_init(&table->access_to_starttime, NULL) != 0)
-	{
-		pthread_mutex_destroy(&table->access_to_statemessage);
-		pthread_mutex_destroy(&table->access_to_mealstarget);
-		pthread_mutex_destroy(&table->access_to_deadflag);
+		ft_free_table_struct(table);
 		return (write(2, "Mutex init error\n", 17));
 	}
 	return (0);
@@ -69,15 +56,16 @@ static int	fill_meals_target(int argc, char **argv)
 int	ft_init_prog_structure(t_program *table, int argc, char **argv)
 {
 	table->nb_philo = ft_atol(argv[1]);
-	if (init_mutexes(table) != 0)
-		return (1);
 	if (init_forks_array(table) != 0)
 		return (1);
+	if (init_mutexes(table) != 0)
+		return (1);
 	table->meals_target = fill_meals_target(argc, argv);
+	table->satiates = 0;
 	table->dead_flag = 0;
 	table->time_todie = ft_atol(argv[2]);
 	table->time_toeat = ft_atol(argv[3]);
 	table->time_tosleep = ft_atol(argv[4]);
-	table->start_time = ft_get_start_time();
+	table->start_time = 0;
 	return (0);
 }

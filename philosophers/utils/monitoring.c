@@ -12,20 +12,43 @@
 
 #include "../philo.h"
 
-static int	check_death(t_philo *philo)
+static int	check_meals(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->access_to_deadflag);
-	pthread_mutex_lock(&philo->table->access_to_mealstarget);
-	if (ft_get_step_time(philo) - philo->last_meal >= philo->table->time_todie)
+	pthread_mutex_lock(&philo->table->meal_lock);
+	if (philo->table->meals_target != -1 && philo->table->satiates
+		== philo->table->nb_philo)
 	{
+		pthread_mutex_unlock(&philo->table->meal_lock);
+		pthread_mutex_lock(&philo->table->deadflag_lock);
 		philo->table->dead_flag = 1;
-		pthread_mutex_unlock(&philo->table->access_to_deadflag);
-		pthread_mutex_unlock(&philo->table->access_to_mealstarget);
-		ft_display_state_message(philo, "is dead");
+		pthread_mutex_unlock(&philo->table->deadflag_lock);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->table->access_to_deadflag);
-	pthread_mutex_unlock(&philo->table->access_to_mealstarget);
+	pthread_mutex_unlock(&philo->table->meal_lock);
+	return (0);
+}
+
+static void	display_death_message(t_philo *philo, long timestamp)
+{
+	pthread_mutex_lock(&philo->table->print_lock);
+	printf("\033[31m%zu %d is dead\033[0m\n", timestamp, philo->id);
+	pthread_mutex_unlock(&philo->table->print_lock);
+}
+
+static int	check_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->meal_lock);
+	if (ft_get_current_time() - philo->last_meal > philo->table->time_todie)
+	{
+		pthread_mutex_unlock(&philo->table->meal_lock);
+		pthread_mutex_lock(&philo->table->deadflag_lock);
+		philo->table->dead_flag = 1;
+		pthread_mutex_unlock(&philo->table->deadflag_lock);
+		display_death_message(philo, (ft_get_current_time()
+				- philo->table->start_time));
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->table->meal_lock);
 	return (0);
 }
 
@@ -33,23 +56,24 @@ void	ft_start_monitoring(t_philo *philo)
 {
 	int	i;
 
-	while (philo->table->dead_flag == 0)
+	ft_usleep(2);
+	while (ft_check_dead_flag(philo->table) == 0)
 	{
 		i = 0;
 		while (i < philo->table->nb_philo)
 		{
 			if (check_death(&philo[i]) == 1)
 				break ;
+			if (check_meals(&philo[i]) == 1)
+				break ;
 			i++;
 		}
+		usleep(100);
 	}
-	if (philo->table->dead_flag == 1)
+	i = 0;
+	while (i < philo->table->nb_philo)
 	{
-		i = 0;
-		while (i < philo->table->nb_philo)
-		{
-			pthread_join(philo[i].thread, NULL);
-			i++;
-		}
+		pthread_join(philo[i].thread, NULL);
+		i++;
 	}
 }

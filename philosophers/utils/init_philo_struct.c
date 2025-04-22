@@ -16,7 +16,6 @@ static void	set_new_philosopher(t_philo *philo, t_program *table, int i)
 {
 	philo->id = i + 1;
 	philo->nb_meals_eaten = 0;
-	philo->last_meal = 0;
 	philo->l_fork = &table->forks[i];
 	philo->r_fork = &table->forks[(i + 1) % table->nb_philo];
 	philo->table = table;
@@ -30,7 +29,7 @@ t_philo	*ft_init_philo_array(t_program *table)
 	philo = malloc(sizeof(t_philo) * table->nb_philo);
 	if (!philo)
 	{
-		ft_free_table_structure(table);
+		ft_free_table_struct(table);
 		write(2, "Array malloc error\n", 19);
 		return (NULL);
 	}

@@ -12,7 +12,7 @@
 
 #include "../philo.h"
 
-void	ft_free_table_structure(t_program *table)
+void	ft_free_table_struct(t_program *table)
 {
 	int	i;
 
@@ -26,14 +26,8 @@ void	ft_free_table_structure(t_program *table)
 		}
 		free(table->forks);
 	}
-	pthread_mutex_destroy(&table->access_to_statemessage);
-	pthread_mutex_destroy(&table->access_to_mealstarget);
-	pthread_mutex_destroy(&table->access_to_deadflag);
-	pthread_mutex_destroy(&table->access_to_starttime);
-}
-
-void	ft_free_both_structures(t_philo *philo, t_program *table)
-{
-	free(philo);
-	ft_free_table_structure(table);
+	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->meal_lock);
+	pthread_mutex_destroy(&table->deadflag_lock);
+	pthread_mutex_destroy(&table->start_time_lock);
 }

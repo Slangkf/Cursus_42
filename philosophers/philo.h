@@ -26,15 +26,16 @@ typedef struct s_program
 {
 	int				nb_philo;
 	int				meals_target;
+	int				satiates;
 	int				dead_flag;
 	size_t			time_todie;
 	size_t			time_toeat;
 	size_t			time_tosleep;
 	size_t			start_time;
-	pthread_mutex_t	access_to_statemessage;
-	pthread_mutex_t	access_to_mealstarget;
-	pthread_mutex_t	access_to_deadflag;
-	pthread_mutex_t	access_to_starttime;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	deadflag_lock;
+	pthread_mutex_t	start_time_lock;
 	pthread_mutex_t	*forks;
 }			t_program;
 
@@ -50,22 +51,21 @@ typedef struct s_philo
 }			t_philo;
 
 //utils
-t_philo		*ft_init_philo_array(t_program *table);
+t_philo	*ft_init_philo_array(t_program *table);
 
 int		ft_init_prog_structure(t_program *table, int argc, char **argv);
 int		ft_start_routine(t_philo *philo, t_program *table);
 int		ft_check_input(int argc, char **argv);
-int		ft_check_dead_flag(t_philo *philo);
+int		ft_check_dead_flag(t_program *table);
 
-void		ft_is_eating(t_philo *philo);
-void		ft_start_monitoring(t_philo *philo);
-void		ft_display_state_message(t_philo *philo, char *message);
-void		ft_free_table_structure(t_program *table);
-void		ft_free_both_structures(t_philo *philo, t_program *table);
+void	ft_is_eating(t_philo *philo);
+void	ft_start_monitoring(t_philo *philo);
+void	ft_usleep(size_t milliseconds);
+void	ft_display_state_message(t_philo *philo, char *message);
+void	ft_free_table_struct(t_program *table);
 
-size_t		ft_get_start_time(void);
-size_t		ft_get_step_time(t_philo *philo);
-size_t		ft_strlen(const char *s);
+size_t	ft_get_current_time(void);
+size_t	ft_strlen(const char *s);
 
-long		ft_atol(const char *argv);
+long	ft_atol(const char *argv);
 #endif
