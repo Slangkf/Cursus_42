@@ -23,16 +23,24 @@ static void	is_sleeping(t_philo *philo)
 	ft_usleep(philo->table->time_tosleep);
 }
 
-int	ft_check_dead_flag(t_program *table)
+static void	synchro(t_philo	*philo)
 {
-	pthread_mutex_lock(&table->deadflag_lock);
-	if (table->dead_flag == 1)
+	if (philo->table->nb_philo % 2 == 0)
 	{
-		pthread_mutex_unlock(&table->deadflag_lock);
-		return (1);
+		if (philo->id % 2 == 1)
+		{
+			is_thinking(philo);
+			ft_usleep(philo->table->time_toeat / 2);
+		}
 	}
-	pthread_mutex_unlock(&table->deadflag_lock);
-	return (0);
+	else
+	{
+		if (philo->id % 2 == 0)
+		{
+			is_thinking(philo);
+			ft_usleep(philo->table->time_toeat / 2);
+		}
+	}
 }
 
 static void	*routine(void *arg)
@@ -51,9 +59,7 @@ static void	*routine(void *arg)
 		pthread_mutex_unlock(&philo->table->start_time_lock);
 		ft_usleep(1);
 	}
-	philo->last_meal = philo->table->start_time;
-	if (philo->id % 2 == 1)
-		ft_usleep(1);
+	synchro(philo);
 	while (ft_check_dead_flag(philo->table) == 0)
 	{
 		ft_is_eating(philo);
@@ -65,7 +71,8 @@ static void	*routine(void *arg)
 
 int	ft_start_routine(t_philo *philo, t_program *table)
 {
-	int	i;
+	int		i;
+	size_t	time;
 
 	i = 0;
 	while (i < table->nb_philo)
@@ -79,8 +86,18 @@ int	ft_start_routine(t_philo *philo, t_program *table)
 		}
 		i++;
 	}
+	ft_usleep(5);
+	time = ft_get_current_time();
+	i = 0;
+	while (i < table->nb_philo)
+	{
+		pthread_mutex_lock(&philo->table->start_time_lock);
+		philo[i].last_meal = time;
+		pthread_mutex_unlock(&philo->table->start_time_lock);
+		i++;
+	}
 	pthread_mutex_lock(&table->start_time_lock);
-	table->start_time = ft_get_current_time();
+	table->start_time = time;
 	pthread_mutex_unlock(&table->start_time_lock);
 	return (0);
 }

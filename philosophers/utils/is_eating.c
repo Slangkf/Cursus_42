@@ -28,8 +28,6 @@ static void	put_down_forks(t_philo *philo)
 
 static void	enjoy_his_meal(t_philo *philo)
 {
-	ft_display_state_message(philo, "\033[33mis eating\033[0m");
-	philo->last_meal = ft_get_current_time();
 	pthread_mutex_lock(&philo->table->meal_lock);
 	if (philo->table->meals_target != -1)
 	{
@@ -38,6 +36,10 @@ static void	enjoy_his_meal(t_philo *philo)
 			philo->table->satiates++;
 	}
 	pthread_mutex_unlock(&philo->table->meal_lock);
+	pthread_mutex_lock(&philo->table->start_time_lock);
+	philo->last_meal = ft_get_current_time();
+	pthread_mutex_unlock(&philo->table->start_time_lock);
+	ft_display_state_message(philo, "\033[33mis eating\033[0m");
 	ft_usleep(philo->table->time_toeat);
 }
 

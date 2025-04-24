@@ -16,6 +16,7 @@ static void	set_new_philosopher(t_philo *philo, t_program *table, int i)
 {
 	philo->id = i + 1;
 	philo->nb_meals_eaten = 0;
+	philo->last_meal = 0;
 	philo->l_fork = &table->forks[i];
 	philo->r_fork = &table->forks[(i + 1) % table->nb_philo];
 	philo->table = table;
