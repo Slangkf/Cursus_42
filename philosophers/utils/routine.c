@@ -15,6 +15,11 @@
 static void	is_thinking(t_philo *philo)
 {
 	ft_display_state_message(philo, "\033[32mis thinking\033[0m");
+	if (philo->table->nb_philo % 2 == 1)
+	{
+		if (philo->id % 2 == 1)
+			ft_usleep(philo->table->time_toeat / 2);
+	}
 }
 
 static void	is_sleeping(t_philo *philo)
@@ -25,21 +30,10 @@ static void	is_sleeping(t_philo *philo)
 
 static void	synchro(t_philo	*philo)
 {
-	if (philo->table->nb_philo % 2 == 0)
+	if (philo->id % 2 == 1)
 	{
-		if (philo->id % 2 == 1)
-		{
-			is_thinking(philo);
-			ft_usleep(philo->table->time_toeat / 2);
-		}
-	}
-	else
-	{
-		if (philo->id % 2 == 0)
-		{
-			is_thinking(philo);
-			ft_usleep(philo->table->time_toeat / 2);
-		}
+		is_thinking(philo);
+		ft_usleep(philo->table->time_toeat / 2);
 	}
 }
 

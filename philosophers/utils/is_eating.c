@@ -36,10 +36,10 @@ static void	enjoy_his_meal(t_philo *philo)
 			philo->table->satiates++;
 	}
 	pthread_mutex_unlock(&philo->table->meal_lock);
+	ft_display_state_message(philo, "\033[33mis eating\033[0m");
 	pthread_mutex_lock(&philo->table->start_time_lock);
 	philo->last_meal = ft_get_current_time();
 	pthread_mutex_unlock(&philo->table->start_time_lock);
-	ft_display_state_message(philo, "\033[33mis eating\033[0m");
 	ft_usleep(philo->table->time_toeat);
 }
 
@@ -53,7 +53,7 @@ static void	take_forks(t_philo *philo)
 		ft_display_state_message(philo, "\033[33mhas taken a fork\033[0m");
 	}
 	else if (philo->id % 2 == 1)
-	{
+	{	
 		pthread_mutex_lock(philo->r_fork);
 		ft_display_state_message(philo, "\033[33mhas taken a fork\033[0m");
 		pthread_mutex_lock(philo->l_fork);
@@ -74,7 +74,7 @@ void	ft_is_eating(t_philo *philo)
 {
 	if (philo->table->nb_philo == 1)
 		one_philosopher(philo);
-	else
+	else if (philo->table->nb_philo > 1)
 	{
 		take_forks(philo);
 		enjoy_his_meal(philo);

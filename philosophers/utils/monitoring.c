@@ -31,7 +31,7 @@ static int	check_meals(t_philo *philo)
 static void	display_death_message(t_philo *philo, long timestamp)
 {
 	pthread_mutex_lock(&philo->table->print_lock);
-	printf("\033[31m%zu %d is dead\033[0m\n", timestamp, philo->id);
+	printf("\033[31m%zu %d died\033[0m\n", timestamp, philo->id);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
