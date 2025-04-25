@@ -27,26 +27,23 @@ void	execute_cmd(char *argv, char **envp)
 	if (!good_path)
 	{
 		ft_free_all(cmd);
-		ft_print_error();
+		write(2, "Environment variable not found\n", 31);
+		exit(1);
 	}
 	if (execve(good_path, cmd, envp) == -1)
 	{
 		ft_free_all(cmd);
-		ft_print_error();
+		write(2, "Execve error\n", 13);
+		exit(1);
 	}
 }
 
-char	*ft_find_good_path(char *argv, char **envp)
+static char	*check_all_paths(char *argv, char **paths)
 {
 	int		i;
-	char	**paths;
 	char	*temp;
 	char	*complete_path;
 
-	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	paths = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (paths[i])
 	{
@@ -54,15 +51,34 @@ char	*ft_find_good_path(char *argv, char **envp)
 		complete_path = ft_strjoin(temp, argv);
 		free(temp);
 		if (access(complete_path, F_OK) == 0)
-		{
-			ft_free_all(paths);
 			return (complete_path);
-		}
 		free(complete_path);
 		i++;
 	}
-	ft_free_all(paths);
+	free(complete_path);
 	return (NULL);
+}
+
+char	*ft_find_good_path(char *argv, char **envp)
+{
+	int		i;
+	char	**paths;
+	char	*complete_path;
+
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	if (!envp[i])
+		return (NULL);
+	paths = ft_split(envp[i] + 5, ':');
+	complete_path = check_all_paths(argv, paths);
+	if (!complete_path)
+	{
+		ft_free_all(paths);
+		return (NULL);
+	}
+	ft_free_all(paths);
+	return (complete_path);
 }
 
 void	ft_print_error(void)

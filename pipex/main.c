@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	pid_t	pid1;
 	pid_t	pid2;
 
-	if (argc != 5)
+	if (argc != 5 || !envp)
 		return (write(2, "Wrong argument(s)\n", 18));
 	if (pipe(pipe_fd) == -1)
 		ft_print_error();
