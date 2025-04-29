@@ -27,9 +27,7 @@ int	ft_printnbr(int n)
 			n *= -1;
 		}
 		if (n > 9)
-		{
 			i += ft_printnbr(n / 10);
-		}
 		i += ft_printchar((n % 10) + '0');
 	}
 	return (i);

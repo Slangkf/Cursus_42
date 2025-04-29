@@ -20,11 +20,7 @@ int	ft_printhexa_upp(unsigned int nb)
 	i = 0;
 	base = "0123456789ABCDEF";
 	if (nb >= 16)
-	{
 		i += ft_printhexa_upp(nb / 16);
-		i += ft_printhexa_upp(nb % 16);
-	}
-	else
-		i += ft_printchar(base[nb % 16]);
+	i += ft_printchar(base[nb % 16]);
 	return (i);
 }
