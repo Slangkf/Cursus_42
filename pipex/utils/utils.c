@@ -27,13 +27,14 @@ void	execute_cmd(char *argv, char **envp)
 	if (!good_path)
 	{
 		ft_free_all(cmd);
-		write(2, "Environment variable not found\n", 31);
+		write(2, "command not found\n", 18);
 		exit(1);
 	}
 	if (execve(good_path, cmd, envp) == -1)
 	{
-		ft_free_all(cmd);
-		write(2, "Execve error\n", 13);
+		if (cmd)
+			ft_free_all(cmd);
+		write(2, "execve error\n", 13);
 		exit(1);
 	}
 }
